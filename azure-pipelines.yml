@@ -1,0 +1,12 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+steps:
+- script: docker build -t jamiehewland/django-kube .
+  displayName: 'Build the image'
+
+- script: docker build -t mysite example
+  displayName: 'Build the example app image'
