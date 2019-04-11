@@ -6,6 +6,7 @@ from gunicorn.workers.sync import SyncWorker
 # See http://docs.gunicorn.org/en/latest/settings.html for a list of available
 # settings. Note that the setting names are used here and not the CLI option
 # names.
+bind = "0.0.0.0:8000"
 
 # Set the worker temporary file directory to /run/gunicorn (rather than default
 # of /tmp) so that all of Gunicorn's files are in one place and a tmpfs can be
