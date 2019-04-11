@@ -1,4 +1,3 @@
-import errno
 import os
 
 from gunicorn.workers.sync import SyncWorker
@@ -45,12 +44,11 @@ def nworkers_changed(server, new_value, old_value):
         path = os.environ["prometheus_multiproc_dir"]
         # mkdir -p equivalent: https://stackoverflow.com/a/600612/3077893
         try:
-            os.makedirs(path)
+            os.makedirs(path, exist_ok=True)
         except OSError as e:
-            if e.errno != errno.EEXIST or not os.path.isdir(path):
-                server.log.warning(
-                    ("Unable to create prometheus_multiproc_dir directory at "
-                     "'%s'"), path, exc_info=e)
+            server.log.warning(
+                "Unable to create prometheus_multiproc_dir directory at '%s'",
+                path, exc_info=e)
 
 
 def worker_exit(server, worker):
