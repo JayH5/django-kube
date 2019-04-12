@@ -58,3 +58,7 @@ DATABASES = {
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # http://whitenoise.evans.io/en/stable/django.html#WHITENOISE_KEEP_ONLY_HASHED_FILES
 WHITENOISE_KEEP_ONLY_HASHED_FILES = True
+
+# http://whitenoise.evans.io/en/stable/django.html#use-a-content-delivery-network
+STATIC_HOST = environ_get('STATIC_HOST', default='')
+STATIC_URL = STATIC_HOST + '/static/'
