@@ -5,7 +5,7 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 variables:
-  GOROOT: '/usr/local/go1.12'
+  GOROOT: '/usr/local/go1.11'
   GOPATH: '$(system.defaultWorkingDirectory)/go'
   GOBIN:  '$(GOPATH)/bin'
 
@@ -19,3 +19,6 @@ steps:
 - script: |
     go get -u sigs.k8s.io/kind
     $(GOBIN)/kind create cluster
+    export KUBECONFIG="$(kind get kubeconfig-path)"
+    kubectl cluster-info
+  displayName: Create kind cluster
