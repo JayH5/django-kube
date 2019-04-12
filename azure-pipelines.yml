@@ -4,9 +4,18 @@ trigger:
 pool:
   vmImage: 'Ubuntu-16.04'
 
+variables:
+  GOROOT: '/usr/local/go1.12'
+  GOPATH: '$(system.defaultWorkingDirectory)/go'
+  GOBIN:  '$(GOPATH)/bin'
+
 steps:
 - script: docker build -t jamiehewland/django-kube .
   displayName: 'Build the image'
 
 - script: docker build -t mysite example
   displayName: 'Build the example app image'
+
+- script: |
+    go get -u sigs.k8s.io/kind
+    $(GOBIN)/kind create cluster
