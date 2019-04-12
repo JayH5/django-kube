@@ -6,5 +6,5 @@ RUN pip install --no-cache -r requirements.txt
 COPY . .
 RUN pip install --no-cache -e .
 
-ENV DJANGO_SETTINGS_MODULE mysite.settings
+ENV DJANGO_SETTINGS_MODULE mysite.docker_settings
 RUN django-admin collectstatic
