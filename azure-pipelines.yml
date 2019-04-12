@@ -1,0 +1,24 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+variables:
+  GOPATH: '$(system.defaultWorkingDirectory)/go'
+  GOBIN: '$(GOPATH)/bin'
+
+steps:
+- script: docker build -t jamiehewland/django-kube .
+  displayName: 'Build the image'
+
+- script: docker build -t mysite example
+  displayName: 'Build the example app image'
+
+- script: |
+    go get -u sigs.k8s.io/kind
+    export PATH="$PATH:$GOBIN"
+    kind create cluster
+    export KUBECONFIG="$(kind get kubeconfig-path)"
+    kubectl cluster-info
+  displayName: Create kind cluster
