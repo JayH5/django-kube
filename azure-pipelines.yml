@@ -6,7 +6,7 @@ pool:
 
 variables:
   GOPATH: '$(system.defaultWorkingDirectory)/go'
-  GOBIN: '$(GOPATH)/bin'
+  PATH: '$(PATH):$(GOPATH)/bin'
 
 steps:
 - script: docker build -t jamiehewland/django-kube .
@@ -17,7 +17,7 @@ steps:
 
 - script: |
     go get -u sigs.k8s.io/kind
-    $(GOBIN)/kind create cluster
+    kind create cluster
     export KUBECONFIG="$(kind get kubeconfig-path)"
     kubectl cluster-info
   displayName: Create kind cluster
