@@ -25,8 +25,9 @@ def parse_list(string):
     return [s for s in string.split(',') if s]
 
 
-def environ_get(key, default=None, parser=None, environ=os.environ):
-    val = environ.get(key)
+def environ_get(key, default=None, parser=None, key_prefix='DJANGO_',
+                environ=os.environ):
+    val = environ.get(key_prefix + key)
     if val is None:
         return default
 
