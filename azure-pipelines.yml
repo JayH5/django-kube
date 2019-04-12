@@ -5,9 +5,8 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 variables:
-  GOROOT: '/usr/local/go1.11'
   GOPATH: '$(system.defaultWorkingDirectory)/go'
-  GOBIN:  '$(GOPATH)/bin'
+  GOBIN: '$(GOPATH)/bin'
 
 steps:
 - script: docker build -t jamiehewland/django-kube .
